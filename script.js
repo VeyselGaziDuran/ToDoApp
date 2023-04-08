@@ -1,4 +1,4 @@
-let sonuc
+
 
 let gorevListesi = [
     {id: 1, gorevAdi: "Görev 1"},
@@ -9,7 +9,7 @@ let gorevListesi = [
 
 let ul = document.getElementById("task-list")
 
-// let count = ul.children.length
+
 
 for (let gorev of gorevListesi ){
 
@@ -25,6 +25,30 @@ for (let gorev of gorevListesi ){
 ul.insertAdjacentHTML("afterbegin", li)
 }
 
+
+
+
+
+
+function newTask(event){
+    console.log("click event: New Task")
+    console.log(event.target)
+    event.preventDefault()
+}
+
+
+
+
+let btnEkle = document.querySelector("#btnAddNewTask").addEventListener("click", newTask)
+
+
+
+
+let btnSil = document.querySelector("#btnClear").addEventListener("click", function(event){
+    console.log("click event: Cleat Task")
+
+    event.preventDefault()
+})
 
 
 
