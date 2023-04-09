@@ -16,7 +16,17 @@ function displayTask() {
                 <li class="task list-group-item">
                     <div class="form-check">
                         <input type="checkbox" id="${gorev.id}" class="form-check-input">
-                        <label for="${gorev.id}" class="form-check-label">${gorev.gorevAdi}</label>
+                        <label for="${gorev.id}" class="form-check-label ">${gorev.gorevAdi}</label>
+                        
+                        <div class="dropdown float-end ">
+                            <button class="btn-sm btn btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a onclick="deleteTask(${gorev.id})" href="#" class="dropdown-item"> <i class=" fa-solid fa-xmark "></i> Sil</a></li>
+                                <li><a onclick="" href="#" class="dropdown-item"> <i class="fa-solid fa-pencil"></i> Düzenle</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </li>
         `;
@@ -45,6 +55,11 @@ let btnEkle = document
   .querySelector("#btnAddNewTask")
   .addEventListener("click", newTask);
 
+
+
+
+
+
 let btnSil = document
   .querySelector("#btnClear")
   .addEventListener("click", function (event) {
@@ -52,3 +67,18 @@ let btnSil = document
 
     event.preventDefault();
   });
+
+
+  function deleteTask(id){
+
+    let deleteID
+
+    for(let index in gorevListesi){
+        if(gorevListesi[index].id == id){
+            deleteID = index
+        }
+    }
+
+    gorevListesi.splice(deleteID, 1)
+    displayTask()
+  }

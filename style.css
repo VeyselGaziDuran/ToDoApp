@@ -1,0 +1,15 @@
+.dropdown-toggle::after {
+    display: none;
+    
+}
+
+.dropdown-item {
+    display: block;
+    padding-top: .1rem;
+    
+}
+
+.dropdown-menu{
+    min-width: 6rem;
+    padding:0.3rem ;
+}
