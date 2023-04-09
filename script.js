@@ -5,6 +5,11 @@ let gorevListesi = [
   { id: 4, gorevAdi: "Görev 4" },
 ];
 
+let editId
+let isEditTask = false
+
+let taskInput = document.querySelector("#txtTaskName");
+
 displayTask();
 
 function displayTask() {
@@ -19,12 +24,12 @@ function displayTask() {
                         <label for="${gorev.id}" class="form-check-label ">${gorev.gorevAdi}</label>
                         
                         <div class="dropdown float-end ">
-                            <button class="btn-sm btn btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn-sm btn btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-ellipsis"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a onclick="deleteTask(${gorev.id})" href="#" class="dropdown-item"> <i class=" fa-solid fa-xmark "></i> Sil</a></li>
-                                <li><a onclick="" href="#" class="dropdown-item"> <i class="fa-solid fa-pencil"></i> Düzenle</a></li>
+                                <li><a onclick='editTask(${gorev.id}, "${gorev.gorevAdi}")' href="#" class="dropdown-item"> <i class="fa-solid fa-pencil"></i> Düzenle</a></li>
                             </ul>
                         </div>
                     </div>
@@ -36,15 +41,25 @@ function displayTask() {
 }
 
 function newTask(event) {
-  let taskInput = document.querySelector("#txtTaskName");
+  
 
   if (taskInput.value == "") {
     alert("Görev Alanı Boş Olamaz");
   } else {
-    gorevListesi.push({
-      id: gorevListesi.length + 1,
-      gorevAdi: taskInput.value,
-    });
+      if(!isEditTask){
+                gorevListesi.push({
+                id: gorevListesi.length + 1,
+                gorevAdi: taskInput.value,
+            });
+      } else{
+            for(let gorev of gorevListesi){
+                if(gorev.id == editId){
+                    gorev.gorevAdi = taskInput.value
+                }
+                isEditTask = false 
+            }
+      }  
+      
     taskInput.value = "";
     displayTask();
   }
@@ -81,4 +96,15 @@ let btnSil = document
 
     gorevListesi.splice(deleteID, 1)
     displayTask()
+  }
+
+
+  function editTask(taskId, taskName){
+    editId= taskId
+    isEditTask = true
+    taskInput.value = taskName
+    taskName.focus()
+    taskInput.classList.add("active")
+
+    
   }
