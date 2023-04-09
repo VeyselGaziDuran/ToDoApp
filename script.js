@@ -1,26 +1,26 @@
 const gorevListesi = [
   { id: 1, gorevAdi: "Görev 1", durum: "completed" },
-  { id: 2, gorevAdi: "Görev 2", durum: "pending"},
-  { id: 3, gorevAdi: "Görev 3", durum: "completed"},
-  { id: 4, gorevAdi: "Görev 4", durum: "pending"},
+  { id: 2, gorevAdi: "Görev 2", durum: "pending" },
+  { id: 3, gorevAdi: "Görev 3", durum: "completed" },
+  { id: 4, gorevAdi: "Görev 4", durum: "pending" },
 ];
 let editId;
 let isEditTask = false;
 const taskInput = document.querySelector("#txtTaskName");
 const btnClear = document.querySelector("#btnClear");
-const filters = document.querySelectorAll('.filters span');
+const filters = document.querySelectorAll(".filters span");
 displayTask();
-function displayTask() {
+function displayTask(filter = "all") {
   const ul = document.getElementById("task-list");
   ul.innerHTML = "";
   if (gorevListesi.length === 0) {
     ul.innerHTML = '<h1 class="empty-task-list">Görev listeniz boş</h1>';
   } else {
     for (const gorev of gorevListesi) {
+      let completed = gorev.durum == "completed" ? "checked" : "";
 
-      let completed = gorev.durum == "completed" ? "checked":""
-
-      let li = `
+      if (filter == gorev.durum || filter == "all") {
+        let li = `
         <li class="task list-group-item">
           <div class="form-check">
             <input type="checkbox" onclick="updateStatus(this)" id="${gorev.id}" class="form-check-input" ${completed}>
@@ -40,21 +40,22 @@ function displayTask() {
             </div>
           </div>
         </li>`;
-      ul.insertAdjacentHTML("afterbegin", li);
+        ul.insertAdjacentHTML("afterbegin", li);
+      }
     }
   }
 }
 
-
-for(let i = 0; i<filters.length; i++){
-  filters[i].addEventListener('click', function(){
-    for(let j=0; j<filters.length; j++){
-      if(j !== i){
-        filters[j].classList.remove('active')
+for (let i = 0; i < filters.length; i++) {
+  filters[i].addEventListener("click", function () {
+    for (let j = 0; j < filters.length; j++) {
+      if (j !== i) {
+        filters[j].classList.remove("active");
       }
     }
-    this.classList.add('active')
-  })
+    this.classList.add("active");
+    displayTask(this.id);
+  });
 }
 
 function newTask(event) {
@@ -95,7 +96,7 @@ function editTask(taskId, taskName) {
   const editTaskModal = new bootstrap.Modal(
     document.getElementById("editTaskModal")
   );
-  editTaskModal.show()
+  editTaskModal.show();
   document
     .querySelector("#saveEditTask")
     .addEventListener("click", function () {
@@ -105,17 +106,18 @@ function editTask(taskId, taskName) {
         }
       }
       isEditTask = false;
-      editTaskModal.hide()
-      displayTask()
-    })
-  document.querySelector("#editTaskInput").addEventListener("keyup", function (event) {
-    if (event.keyCode === 13) {
-      event.preventDefault()
-      document.querySelector("#saveEditTask").click()
-    }
-  });
+      editTaskModal.hide();
+      displayTask();
+    });
+  document
+    .querySelector("#editTaskInput")
+    .addEventListener("keyup", function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.querySelector("#saveEditTask").click();
+      }
+    });
 }
-
 
 function deleteTask(id) {
   const deleteID = gorevListesi.findIndex((gorev) => gorev.id === id);
@@ -125,26 +127,23 @@ function deleteTask(id) {
   }
 }
 
+function updateStatus(selectedTask) {
+  let label = selectedTask.nextElementSibling;
+  let durum;
 
-
-function updateStatus(selectedTask){
-
-  let label = selectedTask.nextElementSibling
-  let durum
-
-  if(selectedTask.checked){
-    label.classList.add("checked")
-    durum = "completed"
-  }else{
-    label.classList.remove("checked")
-    durum = "pending"
+  if (selectedTask.checked) {
+    label.classList.add("checked");
+    durum = "completed";
+  } else {
+    label.classList.remove("checked");
+    durum = "pending";
   }
 
-  for(let gorev of gorevListesi){
-    if(gorev.id == selectedTask.id){
-      gorev.durum = durum
+  for (let gorev of gorevListesi) {
+    if (gorev.id == selectedTask.id) {
+      gorev.durum = durum;
     }
   }
 
-  console.log(gorevListesi)
+  console.log(gorevListesi);
 }
