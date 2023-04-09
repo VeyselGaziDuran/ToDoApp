@@ -8,6 +8,7 @@ let editId;
 let isEditTask = false;
 const taskInput = document.querySelector("#txtTaskName");
 const btnClear = document.querySelector("#btnClear");
+const filters = document.querySelectorAll('.filters span');
 displayTask();
 function displayTask() {
   const ul = document.getElementById("task-list");
@@ -25,15 +26,15 @@ function displayTask() {
             <input type="checkbox" onclick="updateStatus(this)" id="${gorev.id}" class="form-check-input" ${completed}>
             <label for="${gorev.id}" class="form-check-label ${completed}">${gorev.gorevAdi}</label>
             <div class="dropdown float-end ">
-              <button class="btn-sm btn btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn-sm btn btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-ellipsis"></i>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
-                  <a onclick="deleteTask(${gorev.id})" href="#" class="dropdown-item"><i class="fas fa-trash-alt me-2"></i>Sil</a>
+                  <a onclick="deleteTask(${gorev.id})" href="#" class="dropdown-item"><i class="fas fa-trash-alt me-2 text-danger"></i>Sil</a>
                 </li>
                 <li>
-                  <a onclick='editTask(${gorev.id},"${gorev.gorevAdi}")' href="#" class="dropdown-item"><i class="fas fa-edit me-2"></i>Düzenle</a>
+                  <a onclick='editTask(${gorev.id},"${gorev.gorevAdi}")' href="#" class="dropdown-item"><i class="fas fa-edit me-2 text-success"></i>Düzenle</a>
                 </li>
               </ul>
             </div>
@@ -42,6 +43,18 @@ function displayTask() {
       ul.insertAdjacentHTML("afterbegin", li);
     }
   }
+}
+
+
+for(let i = 0; i<filters.length; i++){
+  filters[i].addEventListener('click', function(){
+    for(let j=0; j<filters.length; j++){
+      if(j !== i){
+        filters[j].classList.remove('active')
+      }
+    }
+    this.classList.add('active')
+  })
 }
 
 function newTask(event) {

@@ -27,3 +27,14 @@
 .task label.checked{
   text-decoration: line-through;
 }
+
+.form-check-input:checked {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+  color: white;
+  background-color: rgb(80, 80, 80);
+  border-color: rgb(80, 80, 80);
+}

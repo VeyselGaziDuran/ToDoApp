@@ -25,7 +25,7 @@
       <div class="row mt-4">
         <div class="col-md-8 mx-auto">
           <div class="card">
-            <div class="card-header bg-primary text-light">
+            <div class="card-header bg-secondary text-light">
               <h3 class="card-title text-center mt-1">Görev Listesi</h3>
             </div>
             <div class="card-body">
@@ -38,7 +38,7 @@
                     placeholder="Görev adı girin..."
                   />
                   <button
-                    class="btn btn-sm btn-success"
+                    class="btn btn-sm btn-primary"
                     id="btnAddNewTask"
                     type="submit"
                   >
@@ -46,6 +46,13 @@
                   </button>
                 </div>
               </form>
+              <div class="row controls mb-3">
+                <div class="btn-group filters" role="group" aria-label="Filter Tasks">
+                    <span type="button" class="btn btn-secondary active " id="all">Hepsi</span>
+                    <span type="button" class="btn btn-secondary " id="pending">Yapılacaklar</span>
+                    <span type="button" class="btn btn-secondary" id="completed">Tamamlananlar</span>
+                </div>
+              </div>
               <ul class="list-group" id="task-list"></ul>
               <div class="d-grid">
                 <button class="btn btn-danger mt-3" id="btnClear" type="submit">
