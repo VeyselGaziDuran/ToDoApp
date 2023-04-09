@@ -1,15 +1,23 @@
 .dropdown-toggle::after {
-    display: none;
-    
+  display: none;
 }
 
 .dropdown-item {
-    display: block;
-    padding-top: .1rem;
-    
+  display: block;
+  padding-top: 0.1rem;
 }
 
-.dropdown-menu{
-    min-width: 6rem;
-    padding:0.3rem ;
+.dropdown-menu {
+  min-width: 6rem;
+  padding: 0.3rem;
+}
+
+.empty-task-list {
+  padding: 20px;
+  background-color: #ffffff;
+  border-color: red;
+  color: red;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  text-align: center;
 }
